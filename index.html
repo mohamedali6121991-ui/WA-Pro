@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>زاجل برو - بواسطة: د. محمد محمد علي</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.github.io https://*.githubusercontent.com https://maps.google.com https://www.google.com https://api.whatsapp.com https://wa.me blob:; media-src 'self' blob:;">
-    
+    <title>زاجل برو - إرسال رسائل WhatsApp جماعي</title>
     <style>
-        /* جميع أنماط CSS السابقة هنا بدون تغيير */
         :root { 
             --wa-green: #25D366; 
             --wa-dark: #075E54; 
@@ -16,9 +13,6 @@
             --primary: #3498db;
             --warning: #f1c40f;
             --gray: #95a5a6;
-            --purple: #9b59b6;
-            --pink: #e84393;
-            --teal: #00cec9;
         }
         
         body { 
@@ -34,688 +28,209 @@
         .app-container { 
             background: white; 
             width: 100%; 
-            max-width: 750px; 
+            max-width: 600px; 
             padding: 30px; 
             border-radius: 20px; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             margin: auto;
         }
         
-        /* باقي الأنماط كما هي بدون تغيير */
-        /* ... */
+        h2 { 
+            text-align: center; 
+            color: var(--wa-dark); 
+            border-bottom: 3px solid var(--wa-green); 
+            padding-bottom: 15px; 
+            margin-top: 0;
+        }
+        
+        .box { 
+            background: #f8f9fa; 
+            border: 2px solid #e9ecef; 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+        }
+        
+        label { 
+            display: block; 
+            font-weight: bold; 
+            margin-bottom: 12px; 
+            color: #2c3e50;
+        }
+        
+        textarea, input { 
+            width: 100%; 
+            padding: 14px; 
+            border: 2px solid #ddd; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-size: 15px; 
+            font-family: inherit;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .btn { 
+            width: 100%; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px; 
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-send { 
+            background: var(--wa-green); 
+            color: white; 
+        }
+        
+        .btn-send:hover {
+            background: #1da851;
+        }
+        
+        .btn-next { 
+            background: var(--warning); 
+            color: #333; 
+            display: none; 
+        }
+        
+        #statusLog { 
+            font-size: 15px; 
+            text-align: center; 
+            margin: 15px 0; 
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .alert { 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-size: 14px; 
+            margin-bottom: 20px; 
+            line-height: 1.6;
+            border-right: 5px solid #ffeeba;
+            background: #fff3cd;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-bar { 
+            width: 100%; 
+            height: 12px; 
+            background: #e0e0e0; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--wa-green), var(--primary));
+            width: 0%; 
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .app-container { padding: 20px; }
+            .btn { padding: 14px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <!-- شريط التحكم العلوي -->
-    <div class="control-bar">
-        <div class="developer-info">
-            <div class="dev-badge">
-                <span>👨‍⚕️</span>
-                <span data-ar="د. محمد محمد علي" data-en="Dr. Mohammed Mohammed Ali">د. محمد محمد علي</span>
-                <div class="dev-degree">PhD</div>
-            </div>
-        </div>
-        
-        <div class="language-switcher">
-            <button class="lang-btn active" onclick="switchLanguage('ar')">
-                <span>🇸🇦</span>
-                <span data-ar="العربية" data-en="Arabic">العربية</span>
-            </button>
-            <button class="lang-btn" onclick="switchLanguage('en')">
-                <span>🇺🇸</span>
-                <span data-ar="الإنجليزية" data-en="English">الإنجليزية</span>
-            </button>
-        </div>
+    <h2>🚀 زاجل برو - إرسال رسائل WhatsApp جماعي</h2>
+    
+    <div class="alert">
+        <strong>⚠️ تعليمات النشر على GitHub Pages:</strong><br><br>
+        1. اسم الملف يجب أن يكون <strong>index.html</strong><br>
+        2. يجب رفعه في <strong>الجذر</strong> (ليس داخل مجلد)<br>
+        3. اسم المستودع: <strong>username.github.io</strong><br>
+        4. بعد الرفع، انتظر 1-2 دقيقة ثم افحص الموقع
     </div>
-
-    <h2>
-        <span class="icon">🚀</span>
-        <span data-ar="زاجل برو المتقدم" data-en="Zajel Pro Advanced">زاجل برو المتقدم</span>
-        <small style="font-size: 14px; color: #666; display: block; margin-top: 5px;">
-            <span data-ar="(نسخة GitHub Pages - الوظائف الأساسية فقط)" 
-                  data-en="(GitHub Pages Edition - Basic Features Only)">
-                (نسخة GitHub Pages - الوظائف الأساسية فقط)
-            </span>
-        </small>
-    </h2>
-
-    <div class="alert alert-warning" id="alertBox">
-        <strong>⚠️ ملاحظة هامة حول GitHub Pages:</strong><br><br>
-        <span>هذه النسخة تعمل على GitHub Pages مع الوظائف الأساسية فقط.<br>
-        الوظائف المتقدمة (تسجيل صوتي، كاميرا، GPS) تحتاج HTTPS كامل.<br>
-        للحصول على جميع المميزات، استخدم <a href="https://netlify.com" target="_blank">Netlify</a>.</span>
-    </div>
-
-    <!-- تبويبات الوظائف -->
-    <div class="functions-tabs">
-        <button class="tab-btn active" onclick="switchFunction('text')">
-            <span class="icon">📝</span>
-            <span data-ar="نص وملفات" data-en="Text & Files">نص وملفات</span>
-        </button>
-        <button class="tab-btn" onclick="switchFunction('upload')">
-            <span class="icon">📎</span>
-            <span data-ar="رفع ملفات" data-en="Upload Files">رفع ملفات</span>
-        </button>
-        <button class="tab-btn" onclick="showAdvancedFeaturesAlert()">
-            <span class="icon">🎤</span>
-            <span data-ar="تسجيل صوتي" data-en="Voice Record">تسجيل صوتي</span>
-        </button>
-        <button class="tab-btn" onclick="showAdvancedFeaturesAlert()">
-            <span class="icon">📷</span>
-            <span data-ar="كاميرا" data-en="Camera">كاميرا</span>
-        </button>
-        <button class="tab-btn" onclick="switchFunction('location')">
-            <span class="icon">📍</span>
-            <span data-ar="الموقع" data-en="Location">الموقع</span>
-        </button>
-    </div>
-
-    <!-- محتوى تبويب النص -->
-    <div class="function-content active" id="textFunction">
-        <div class="box">
-            <label data-ar="1. نص الرسالة الموحدة:" data-en="1. Unified Message Text:">
-                <span>1. نص الرسالة الموحدة:</span>
-                <span id="messageCounter" class="counter">0</span>
-            </label>
-            <textarea id="mainMessage" rows="4" 
-                      data-ar-placeholder="اكتب رسالتك هنا..." 
-                      data-en-placeholder="Type your message here..."
-                      oninput="updateMessageCounter()"></textarea>
-            
-            <div class="stats">
-                <span id="charCount" data-ar="0 حرف" data-en="0 chars">0 حرف</span>
-                <span id="wordCount" data-ar="0 كلمة" data-en="0 words">0 كلمة</span>
-            </div>
-            
-            <!-- رابط يدوي للملفات -->
-            <div class="input-with-icon" style="margin-top: 15px;">
-                <input type="text" id="manualFileUrl" 
-                       data-ar-placeholder="أدخل رابط ملف (صور، فيديو، PDF)..."
-                       data-en-placeholder="Enter file link (images, video, PDF)...">
-                <span class="input-icon">🔗</span>
-            </div>
-            
-            <button class="btn" style="background: #1abc9c; color: white; margin-top: 10px;" onclick="showPreview()">
-                <span class="icon">👁️</span>
-                <span data-ar="معاينة الرسالة" data-en="Preview Message">معاينة الرسالة</span>
-            </button>
-            
-            <div id="messagePreview" class="message-preview"></div>
-        </div>
-    </div>
-
-    <!-- محتوى تبويب رفع الملفات -->
-    <div class="function-content" id="uploadFunction">
-        <div class="box">
-            <label data-ar="📎 رفع الملفات من جهازك" data-en="📎 Upload Files from Device">
-                📎 رفع الملفات من جهازك
-            </label>
-            
-            <div class="upload-section" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                <div class="icon">📎</div>
-                <div data-ar="انقر لاختيار الملفات من جهازك" 
-                     data-en="Click to select files from your device">
-                    انقر لاختيار الملفات من جهازك
-                </div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">
-                    <span data-ar="(الصور، الفيديو، PDF، المستندات)" 
-                          data-en="(Images, Videos, PDF, Documents)">
-                        (الصور، الفيديو، PDF، المستندات)
-                    </span>
-                </div>
-                <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFileSelect(event)">
-            </div>
-            
-            <!-- قائمة الملفات المرفوعة -->
-            <div class="file-list" id="fileList"></div>
-            
-            <div style="margin-top: 15px; font-size: 14px; color: #666;">
-                <div>💡 ملاحظة: الملفات تحفظ في ذاكرة المتصفح فقط</div>
-                <div>لرفع الملفات إلى السحابة، استخدم <a href="https://imgbb.com" target="_blank">ImgBB</a> أو <a href="https://wetransfer.com" target="_blank">WeTransfer</a></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- محتوى تبويب الموقع -->
-    <div class="function-content" id="locationFunction">
-        <div class="box">
-            <label data-ar="📍 الموقع الجغرافي" data-en="📍 Geolocation">
-                📍 الموقع الجغرافي
-            </label>
-            
-            <div style="padding: 15px; background: #f8f9fa; border-radius: 10px; margin-bottom: 15px;">
-                <strong>ملاحظة حول GPS:</strong><br>
-                للوصول إلى GPS على GitHub Pages:
-                <ol style="margin: 10px 0; padding-right: 20px;">
-                    <li>افتح الموقع باستخدام Live Server في VS Code</li>
-                    <li>أو استخدم <a href="https://netlify.com" target="_blank">Netlify</a> للحصول على HTTPS كامل</li>
-                    <li>أو أدخل الموقع يدوياً</li>
-                </ol>
-            </div>
-            
-            <div class="input-with-icon">
-                <input type="text" id="manualLocation" 
-                       data-ar-placeholder="أدخل رابط خرائط جوجل يدوياً..."
-                       data-en-placeholder="Enter Google Maps link manually...">
-                <span class="input-icon">📍</span>
-            </div>
-            
-            <button class="btn btn-gps" onclick="addManualLocation()" style="margin-top: 10px;">
-                <span class="icon">📍</span>
-                <span data-ar="إضافة الموقع يدوياً" data-en="Add Location Manually">إضافة الموقع يدوياً</span>
-            </button>
-            
-            <button class="btn" onclick="tryGeolocation()" style="margin-top: 10px; background: #9b59b6; color: white;">
-                <span class="icon">🔄</span>
-                <span data-ar="محاولة تحديد الموقع" data-en="Try Geolocation">محاولة تحديد الموقع</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- قسم الأرقام -->
+    
     <div class="box">
-        <label data-ar="📱 قائمة أرقام الواتساب:" data-en="📱 WhatsApp Numbers List:">
-            <span>📱 قائمة أرقام الواتساب:</span>
-            <span id="numbersCounter" class="counter">0</span>
-        </label>
-        <textarea id="phoneNumbers" rows="5" 
-                  data-ar-placeholder="ضع كل رقم في سطر جديد (مثال: +9665xxxxxxxx أو 9665xxxxxxxx)"
-                  data-en-placeholder="Put each number on a new line (e.g., +9665xxxxxxxx or 9665xxxxxxxx)"
-                  oninput="validateAndCountNumbers()"></textarea>
+        <label>📝 نص الرسالة:</label>
+        <textarea id="mainMessage" rows="4" placeholder="اكتب رسالتك هنا..."></textarea>
         
-        <div class="stats">
-            <span id="validNumbers" data-ar="0 رقم صالح" data-en="0 valid numbers">0 رقم صالح</span>
-            <span id="invalidNumbers" data-ar="0 رقم غير صالح" data-en="0 invalid numbers">0 رقم غير صالح</span>
-        </div>
-        
-        <!-- اختيار كود الدولة -->
-        <div style="margin-top: 15px;">
-            <label data-ar="اختر كود الدولة الافتراضي:" data-en="Select default country code:">
-                اختر كود الدولة الافتراضي:
-            </label>
-            <select id="countryCode" onchange="updateCountryCode()">
-                <option value="+966">🇸🇦 السعودية (+966)</option>
-                <option value="+971">🇦🇪 الإمارات (+971)</option>
-                <option value="+20">🇪🇬 مصر (+20)</option>
-                <option value="+1">🇺🇸 الولايات المتحدة (+1)</option>
-                <option value="+44">🇬🇧 المملكة المتحدة (+44)</option>
-                <option value="+962">🇯🇴 الأردن (+962)</option>
-                <option value="custom">✏️ مخصص</option>
-            </select>
-            <input type="text" id="customCountryCode" placeholder="+xxx" style="display: none; margin-top: 10px;">
-        </div>
+        <label style="margin-top: 15px;">🔗 رابط ملف (اختياري):</label>
+        <input type="text" id="fileUrl" placeholder="https://example.com/image.jpg">
     </div>
-
-    <!-- شريط التقدم -->
+    
+    <div class="box">
+        <label>📱 قائمة أرقام WhatsApp:</label>
+        <textarea id="phoneNumbers" rows="5" placeholder="ضع كل رقم في سطر جديد
+مثال: +966511234567
+مثال: 966522345678"></textarea>
+    </div>
+    
     <div class="progress-container" id="progressContainer">
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="progress-text" id="progressText">0%</div>
     </div>
-
-    <div id="statusLog" data-ar="📱 جاهز للبدء - أدخل الرسالة والأرقام" 
-                      data-en="📱 Ready to start - Enter message and numbers">
-        📱 جاهز للبدء - أدخل الرسالة والأرقام
-    </div>
+    
+    <div id="statusLog">✅ جاهز للإرسال</div>
     
     <button class="btn btn-send" id="startBtn" onclick="startCampaign()">
-        <span class="icon">🚀</span>
-        <span data-ar="بدء إرسال الحملة الجماعية" data-en="Start Mass Campaign">بدء إرسال الحملة الجماعية</span>
+        🚀 بدء إرسال الحملة الجماعية
     </button>
     
     <button class="btn btn-next" id="nextBtn" onclick="processNext()">
-        <span class="icon">➡️</span>
-        <span data-ar="الرقم التالي" data-en="Next Number">الرقم التالي</span>
+        ➡️ الرقم التالي
     </button>
-    
-    <div style="display: flex; gap: 10px; margin-top: 10px;">
-        <button class="btn btn-save" onclick="saveData()" style="flex: 1;">
-            <span class="icon">💾</span>
-            <span data-ar="حفظ المسودة" data-en="Save Draft">حفظ المسودة</span>
-        </button>
-        
-        <button class="btn" style="background: #e74c3c; color: white; flex: 1;" onclick="resetAll()">
-            <span class="icon">🔄</span>
-            <span data-ar="إعادة تعيين" data-en="Reset All">إعادة تعيين</span>
-        </button>
-    </div>
 </div>
 
 <script>
-    // ============== المتغيرات العامة ==============
     let contacts = [];
     let currentIdx = 0;
     let totalContacts = 0;
-    let uploadedFiles = [];
-    let currentLanguage = 'ar';
-    let currentFunction = 'text';
-    
-    // ============== نظام اللغات ==============
-    function switchLanguage(lang) {
-        currentLanguage = lang;
-        localStorage.setItem('z_language', lang);
-        
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-        document.documentElement.lang = lang;
-        
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
-        
-        updateAllTexts();
-        
-        const statusMsg = lang === 'ar' 
-            ? "✅ تم تغيير اللغة إلى العربية" 
-            : "✅ Language changed to English";
-        document.getElementById('statusLog').textContent = statusMsg;
-        
-        updateMessageCounter();
-        validateAndCountNumbers();
-    }
-    
-    function updateAllTexts() {
-        document.querySelectorAll('[data-ar], [data-en]').forEach(element => {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                const placeholder = element.getAttribute(`data-${currentLanguage}-placeholder`);
-                if (placeholder) element.placeholder = placeholder;
-            } else {
-                const text = element.getAttribute(`data-${currentLanguage}`);
-                if (text) element.textContent = text;
-            }
-        });
-    }
 
-    // ============== نظام التبويبات ==============
-    function switchFunction(func) {
-        currentFunction = func;
-        
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
-        
-        document.querySelectorAll('.function-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        document.getElementById(`${func}Function`).classList.add('active');
-    }
-    
-    function showAdvancedFeaturesAlert() {
-        const msg = currentLanguage === 'ar' 
-            ? "⚠️ هذه الوظيفة تحتاج HTTPS كامل.\n\nللحصول على جميع المميزات:\n1. استخدم Live Server في VS Code\n2. أو استخدم Netlify للنشر\n3. أو استخدم خدمة HTTPS أخرى"
-            : "⚠️ This feature requires full HTTPS.\n\nFor all features:\n1. Use Live Server in VS Code\n2. Or deploy on Netlify\n3. Or use another HTTPS service";
-        alert(msg);
-    }
-
-    // ============== نظام رفع الملفات المحلي ==============
-    function handleFileSelect(e) {
-        const files = e.target.files;
-        handleFiles(files);
-    }
-    
-    function handleFiles(files) {
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            
-            if (file.size > 10 * 1024 * 1024) {
-                const msg = currentLanguage === 'ar' 
-                    ? `الملف ${file.name} يتجاوز 10MB`
-                    : `File ${file.name} exceeds 10MB`;
-                alert(msg);
-                continue;
-            }
-            
-            const validTypes = ['image/', 'video/', 'application/pdf', 'text/', 'application/msword', 'application/vnd.openxmlformats-officedocument.'];
-            const isValid = validTypes.some(type => file.type.startsWith(type));
-            
-            if (!isValid) {
-                const msg = currentLanguage === 'ar' 
-                    ? `نوع الملف ${file.name} غير مدعوم`
-                    : `File type ${file.name} is not supported`;
-                alert(msg);
-                continue;
-            }
-            
-            const fileURL = URL.createObjectURL(file);
-            uploadedFiles.push({
-                name: file.name,
-                size: formatFileSize(file.size),
-                url: fileURL,
-                type: file.type
-            });
-        }
-        
-        renderFileList();
-        updateFileLinks();
-    }
-    
-    function formatFileSize(bytes) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-    
-    function renderFileList() {
-        const fileList = document.getElementById('fileList');
-        
-        if (uploadedFiles.length === 0) {
-            fileList.innerHTML = '';
-            return;
-        }
-        
-        fileList.innerHTML = uploadedFiles.map((file, index) => `
-            <div class="file-item">
-                <div class="file-info">
-                    <div class="file-icon">${getFileIcon(file.name)}</div>
-                    <div>
-                        <div class="file-name" title="${file.name}">${file.name}</div>
-                        <div class="file-size">${file.size}</div>
-                    </div>
-                </div>
-                <div class="remove-file" onclick="removeFile(${index})">×</div>
-            </div>
-        `).join('');
-    }
-    
-    function getFileIcon(filename) {
-        const ext = filename.split('.').pop().toLowerCase();
-        if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(ext)) return '🖼️';
-        if (['mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv'].includes(ext)) return '🎥';
-        if (['pdf'].includes(ext)) return '📄';
-        if (['doc', 'docx'].includes(ext)) return '📝';
-        return '📎';
-    }
-    
-    function removeFile(index) {
-        // تحرير URL للذاكرة
-        if (uploadedFiles[index].url) {
-            URL.revokeObjectURL(uploadedFiles[index].url);
-        }
-        uploadedFiles.splice(index, 1);
-        renderFileList();
-        updateFileLinks();
-        
-        const msg = currentLanguage === 'ar' 
-            ? "تم حذف الملف" 
-            : "File removed";
-        document.getElementById('statusLog').textContent = msg;
-    }
-    
-    function updateFileLinks() {
-        const manualFileUrl = document.getElementById('manualFileUrl').value;
-        let allLinks = [];
-        
-        uploadedFiles.forEach(file => {
-            if (file.url) {
-                allLinks.push(file.url);
-            }
-        });
-        
-        if (manualFileUrl) {
-            allLinks.push(manualFileUrl);
-        }
-        
-        return allLinks.join('\n');
-    }
-
-    // ============== نظام الموقع ==============
-    function addManualLocation() {
-        const manualLocation = document.getElementById('manualLocation').value;
-        if (!manualLocation) {
-            const msg = currentLanguage === 'ar' 
-                ? "⚠️ يرجى إدخال رابط الموقع أولاً" 
-                : "⚠️ Please enter location link first";
-            alert(msg);
-            return;
-        }
-        
-        const textarea = document.getElementById('mainMessage');
-        const locationText = currentLanguage === 'ar' 
-            ? `📍 الموقع:\n${manualLocation}`
-            : `📍 Location:\n${manualLocation}`;
-        
-        if (textarea.value && !textarea.value.endsWith('\n')) {
-            textarea.value += '\n\n';
-        }
-        textarea.value += locationText;
-        
-        updateMessageCounter();
-        
-        const msg = currentLanguage === 'ar' 
-            ? "✅ تم إضافة الموقع يدوياً" 
-            : "✅ Location added manually";
-        document.getElementById('statusLog').textContent = msg;
-    }
-    
-    function tryGeolocation() {
-        if (!navigator.geolocation) {
-            const msg = currentLanguage === 'ar' 
-                ? "❌ متصفحك لا يدعم تحديد الموقع" 
-                : "❌ Your browser doesn't support geolocation";
-            alert(msg);
-            return;
-        }
-        
-        const log = document.getElementById('statusLog');
-        const loadingMsg = currentLanguage === 'ar' 
-            ? "🛰️ جاري محاولة تحديد الموقع..." 
-            : "🛰️ Trying to get location...";
-        log.textContent = loadingMsg;
-        
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude.toFixed(6);
-                const lng = position.coords.longitude.toFixed(6);
-                const googleMaps = `https://maps.google.com/?q=${lat},${lng}`;
-                
-                document.getElementById('manualLocation').value = googleMaps;
-                
-                const successMsg = currentLanguage === 'ar' 
-                    ? "📍 تم تحديد الموقع بنجاح" 
-                    : "📍 Location determined successfully";
-                log.textContent = successMsg;
-            },
-            (error) => {
-                console.error('Geolocation error:', error);
-                const errorMsg = currentLanguage === 'ar' 
-                    ? "❌ فشل تحديد الموقع. حاول استخدام HTTPS كامل" 
-                    : "❌ Failed to get location. Try using full HTTPS";
-                log.textContent = errorMsg;
-                
-                const helpMsg = currentLanguage === 'ar' 
-                    ? "💡 للحصول على GPS:\n1. افتح الموقع باستخدام Live Server\n2. أو انشر على Netlify\n3. أو أدخل الموقع يدوياً"
-                    : "💡 For GPS access:\n1. Open with Live Server\n2. Or deploy on Netlify\n3. Or enter location manually";
-                alert(helpMsg);
-            },
-            { enableHighAccuracy: true, timeout: 5000 }
-        );
-    }
-
-    // ============== الوظائف الأساسية ==============
-    function updateMessageCounter() {
-        const message = document.getElementById('mainMessage').value;
-        const chars = message.length;
-        const words = message.trim() ? message.trim().split(/\s+/).length : 0;
-        
-        document.getElementById('messageCounter').textContent = chars;
-        
-        const charText = currentLanguage === 'ar' ? `${chars} حرف` : `${chars} chars`;
-        const wordText = currentLanguage === 'ar' ? `${words} كلمة` : `${words} words`;
-        
-        document.getElementById('charCount').textContent = charText;
-        document.getElementById('wordCount').textContent = wordText;
-    }
-    
-    function validateAndCountNumbers() {
-        const numbersText = document.getElementById('phoneNumbers').value;
-        const numbersArray = numbersText.split('\n').map(n => n.trim()).filter(n => n !== '');
-        
-        document.getElementById('numbersCounter').textContent = numbersArray.length;
-        
-        let validCount = 0;
-        let invalidCount = 0;
-        
-        numbersArray.forEach(num => {
-            if (isValidPhoneNumber(num)) {
-                validCount++;
-            } else {
-                invalidCount++;
-            }
-        });
-        
-        const validText = currentLanguage === 'ar' ? `${validCount} رقم صالح` : `${validCount} valid`;
-        const invalidText = currentLanguage === 'ar' ? `${invalidCount} رقم غير صالح` : `${invalidCount} invalid`;
-        
-        document.getElementById('validNumbers').textContent = validText;
-        document.getElementById('invalidNumbers').textContent = invalidText;
-        
-        const counter = document.getElementById('numbersCounter');
-        if (invalidCount > 0) {
-            counter.style.background = 'var(--error)';
-        } else {
-            counter.style.background = 'var(--success)';
-        }
-    }
-    
-    function isValidPhoneNumber(phone) {
-        const cleanNum = phone.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
-        const patterns = [
-            /^\+[1-9]\d{10,14}$/,
-            /^00[1-9]\d{10,14}$/,
-            /^[1-9]\d{9,14}$/
-        ];
-        return patterns.some(pattern => pattern.test(cleanNum));
-    }
-    
-    function cleanPhoneNumbers(numbers) {
-        const countryCode = getCountryCode();
-        
-        return numbers.map(num => {
-            let cleanNum = num.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
-            
-            if (cleanNum.startsWith('00')) {
-                cleanNum = '+' + cleanNum.substring(2);
-            } else if (/^[0-9]{9,}$/.test(cleanNum) && !cleanNum.startsWith('+')) {
-                if (cleanNum.startsWith('0')) {
-                    cleanNum = countryCode + cleanNum.substring(1);
-                } else {
-                    cleanNum = countryCode + cleanNum;
-                }
-            }
-            
-            return cleanNum;
-        }).filter(isValidPhoneNumber);
-    }
-    
-    function getCountryCode() {
-        const select = document.getElementById('countryCode');
-        if (select.value === 'custom') {
-            return document.getElementById('customCountryCode').value || '+966';
-        }
-        return select.value;
-    }
-    
-    function updateCountryCode() {
-        const select = document.getElementById('countryCode');
-        const customInput = document.getElementById('customCountryCode');
-        
-        if (select.value === 'custom') {
-            customInput.style.display = 'block';
-        } else {
-            customInput.style.display = 'none';
-            localStorage.setItem('z_country_code', select.value);
-        }
-    }
-    
-    function showPreview() {
-        const message = document.getElementById('mainMessage').value;
-        const fileLinks = updateFileLinks();
-        const preview = document.getElementById('messagePreview');
-        
-        if (!message && !fileLinks) {
-            const noPreviewMsg = currentLanguage === 'ar' 
-                ? "لا توجد رسالة للمعاينة" 
-                : "No message to preview";
-            preview.innerHTML = `<em style='color: #999;'>${noPreviewMsg}</em>`;
-            preview.style.display = 'block';
-            return;
-        }
-        
-        let previewHTML = '';
-        
-        if (message) {
-            const msgTitle = currentLanguage === 'ar' ? "📝 نص الرسالة:" : "📝 Message Text:";
-            previewHTML += `<div style="margin-bottom: 15px;"><strong>${msgTitle}</strong></div>`;
-            previewHTML += `<div style="white-space: pre-wrap; padding: 10px; background: #f8f9fa; border-radius: 5px; margin-bottom: 10px;">${message.replace(/\n/g, '<br>')}</div>`;
-        }
-        
-        if (fileLinks) {
-            const filesTitle = currentLanguage === 'ar' ? "📎 الملفات المرفقة:" : "📎 Attached Files:";
-            previewHTML += `<div style="margin-bottom: 10px;"><strong>${filesTitle}</strong></div>`;
-            previewHTML += `<div style="color: #3498db; word-break: break-all; font-size: 13px;">${fileLinks.replace(/\n/g, '<br>')}</div>`;
-        }
-        
-        preview.innerHTML = previewHTML;
-        preview.style.display = 'block';
-        
-        setTimeout(() => {
-            preview.style.opacity = '0';
-            preview.style.transition = 'opacity 0.5s';
-            setTimeout(() => {
-                preview.style.display = 'none';
-                preview.style.opacity = '1';
-            }, 500);
-        }, 8000);
-    }
-    
     function startCampaign() {
         const rawNums = document.getElementById('phoneNumbers').value;
         const numbersArray = rawNums.split('\n').map(n => n.trim()).filter(n => n !== '');
         
         if (numbersArray.length === 0) {
-            const msg = currentLanguage === 'ar' 
-                ? "⚠️ يرجى إدخال الأرقام أولاً" 
-                : "⚠️ Please enter numbers first";
-            alert(msg);
+            alert("⚠️ يرجى إدخال الأرقام أولاً");
             return;
         }
         
-        contacts = cleanPhoneNumbers(numbersArray);
+        // تنظيف الأرقام
+        contacts = numbersArray.map(num => {
+            let cleanNum = num.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
+            if (cleanNum.startsWith('00')) {
+                cleanNum = '+' + cleanNum.substring(2);
+            } else if (/^[0-9]{10,}$/.test(cleanNum) && !cleanNum.startsWith('+')) {
+                cleanNum = '+966' + cleanNum.substring(cleanNum.startsWith('0') ? 1 : 0);
+            }
+            return cleanNum;
+        }).filter(num => /^\+[1-9]\d{10,14}$/.test(num));
         
         if (contacts.length === 0) {
-            const msg = currentLanguage === 'ar' 
-                ? "❌ لم يتم العثور على أرقام صالحة" 
-                : "❌ No valid numbers found";
-            alert(msg);
+            alert("❌ لم يتم العثور على أرقام صالحة");
             return;
         }
         
-        if (contacts.length < numbersArray.length) {
-            const invalidCount = numbersArray.length - contacts.length;
-            const confirmMsg = currentLanguage === 'ar' 
-                ? `تم العثور على ${invalidCount} رقم غير صالح.\nهل تريد المتابعة مع ${contacts.length} رقم صالح فقط؟`
-                : `Found ${invalidCount} invalid numbers.\nContinue with ${contacts.length} valid numbers only?`;
-            if (!confirm(confirmMsg)) return;
+        if (!confirm(`هل تريد إرسال ${contacts.length} رسالة؟`)) {
+            return;
         }
-        
-        if (contacts.length > 50) {
-            const warningMsg = currentLanguage === 'ar' 
-                ? `تحذير: سترسل ${contacts.length} رسالة.\nقد يؤدي هذا إلى حظر من WhatsApp.\nهل تريد المتابعة؟`
-                : `Warning: You'll send ${contacts.length} messages.\nThis may cause WhatsApp restrictions.\nContinue?`;
-            if (!confirm(warningMsg)) return;
-        }
-        
-        const finalConfirm = currentLanguage === 'ar' 
-            ? `🚀 جاهز للإرسال!\n\nعدد الرسائل: ${contacts.length}\nسيتم فتح نافذة لكل رقم.\nتأكد من السماح بالنوافذ المنبثقة.\n\nهل تريد البدء الآن؟`
-            : `🚀 Ready to send!\n\nMessages: ${contacts.length}\nA window will open for each number.\nMake sure to allow popups.\n\nStart now?`;
-        
-        if (!confirm(finalConfirm)) return;
         
         totalContacts = contacts.length;
         currentIdx = 0;
@@ -724,196 +239,65 @@
         document.getElementById('nextBtn').style.display = 'block';
         document.getElementById('progressContainer').style.display = 'block';
         
-        const startMsg = currentLanguage === 'ar' 
-            ? `🚀 بدء الإرسال إلى ${totalContacts} رقم...` 
-            : `🚀 Starting sending to ${totalContacts} numbers...`;
-        document.getElementById('statusLog').textContent = startMsg;
+        document.getElementById('statusLog').textContent = `🚀 بدء الإرسال إلى ${totalContacts} رقم...`;
         
         processNext();
     }
     
     function processNext() {
         if (currentIdx >= totalContacts) {
-            completeCampaign();
+            document.getElementById('statusLog').innerHTML = `🎉 اكتملت الحملة!<br><small>تم إرسال ${totalContacts} رسالة</small>`;
+            document.getElementById('nextBtn').innerHTML = '🔄 بدء حملة جديدة';
+            document.getElementById('nextBtn').onclick = () => location.reload();
             return;
         }
         
         const phone = contacts[currentIdx];
         let finalMsg = document.getElementById('mainMessage').value;
-        const fileLinks = updateFileLinks();
+        const fileLink = document.getElementById('fileUrl').value;
         
-        if (fileLinks) {
-            const filesTitle = currentLanguage === 'ar' ? "📎 الملفات المرفقة:" : "📎 Attached Files:";
-            finalMsg += `\n\n${filesTitle}\n${fileLinks}`;
+        if (fileLink) {
+            finalMsg += `\n\n🔗 المرفق: ${fileLink}`;
         }
         
         const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(finalMsg)}`;
         
-        const statusMsg = currentLanguage === 'ar' 
-            ? `📤 الإرسال ${currentIdx + 1} من ${totalContacts}` 
-            : `📤 Sending ${currentIdx + 1} of ${totalContacts}`;
-        document.getElementById('statusLog').innerHTML = `${statusMsg}<br><small>${phone}</small>`;
+        document.getElementById('statusLog').innerHTML = `📤 الإرسال ${currentIdx + 1} من ${totalContacts}<br><small>${phone}</small>`;
         
-        updateProgress();
+        // تحديث شريط التقدم
+        const progress = ((currentIdx / totalContacts) * 100);
+        document.getElementById('progressFill').style.width = `${progress}%`;
+        document.getElementById('progressText').textContent = `${Math.round(progress)}%`;
         
-        setTimeout(() => {
-            const newWindow = window.open(whatsappUrl, '_blank', 'width=600,height=700');
-            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                alert(currentLanguage === 'ar' 
-                    ? "⚠️ تم حظر النافذة المنبثقة! يرجى السماح بالنوافذ المنبثقة."
-                    : "⚠️ Popup blocked! Please allow popups.");
-            }
-        }, 500);
+        // فتح نافذة WhatsApp
+        window.open(whatsappUrl, '_blank', 'width=600,height=700');
         
         currentIdx++;
         
         if (currentIdx < totalContacts) {
-            const nextText = currentLanguage === 'ar' 
-                ? `➡️ التالي (${currentIdx + 1} من ${totalContacts})` 
-                : `➡️ Next (${currentIdx + 1} of ${totalContacts})`;
-            document.getElementById('nextBtn').innerHTML = `<span class="icon">➡️</span> <span>${nextText}</span>`;
+            document.getElementById('nextBtn').innerHTML = `➡️ التالي (${currentIdx + 1} من ${totalContacts})`;
         } else {
-            const completeText = currentLanguage === 'ar' ? '✅ اكتمل الإرسال' : '✅ Sending Complete';
-            document.getElementById('nextBtn').innerHTML = `<span class="icon">✅</span> <span>${completeText}</span>`;
+            document.getElementById('nextBtn').innerHTML = '✅ اكتمل الإرسال';
         }
     }
     
-    function updateProgress() {
-        const progress = totalContacts > 0 ? ((currentIdx / totalContacts) * 100) : 0;
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        
-        progressFill.style.width = `${progress}%`;
-        const progressMsg = currentLanguage === 'ar' 
-            ? `${Math.round(progress)}% (${currentIdx} من ${totalContacts})` 
-            : `${Math.round(progress)}% (${currentIdx} of ${totalContacts})`;
-        progressText.textContent = progressMsg;
-    }
-    
-    function completeCampaign() {
-        const completeMsg = currentLanguage === 'ar' 
-            ? `🎉 اكتملت الحملة بنجاح!\n<small>تم إرسال ${totalContacts} رسالة</small>` 
-            : `🎉 Campaign completed successfully!\n<small>Sent ${totalContacts} messages</small>`;
-        document.getElementById('statusLog').innerHTML = completeMsg;
-        
-        const newCampaignText = currentLanguage === 'ar' ? '🔄 حملة جديدة' : '🔄 New Campaign';
-        document.getElementById('nextBtn').innerHTML = `<span class="icon">🔄</span> <span>${newCampaignText}</span>`;
-        document.getElementById('nextBtn').onclick = () => location.reload();
-        
-        document.getElementById('progressFill').style.background = 'var(--success)';
-        localStorage.setItem('z_last_send', new Date().toISOString());
-    }
-    
-    function saveData() {
-        const message = document.getElementById('mainMessage').value;
-        const numbers = document.getElementById('phoneNumbers').value;
-        const manualFileUrl = document.getElementById('manualFileUrl').value;
-        const manualLocation = document.getElementById('manualLocation').value;
-        const countryCode = document.getElementById('countryCode').value;
-        
-        localStorage.setItem('z_msg', message);
-        localStorage.setItem('z_nums', numbers);
-        localStorage.setItem('z_manual_file', manualFileUrl);
-        localStorage.setItem('z_manual_location', manualLocation);
-        localStorage.setItem('z_country_code', countryCode);
-        
-        const saveMsg = currentLanguage === 'ar' 
-            ? "✅ تم حفظ البيانات بنجاح" 
-            : "✅ Data saved successfully";
-        document.getElementById('statusLog').textContent = saveMsg;
-        
-        const log = document.getElementById('statusLog');
-        log.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
-        setTimeout(() => {
-            log.style.background = '';
-        }, 2000);
-    }
-    
-    function resetAll() {
-        const confirmMsg = currentLanguage === 'ar' 
-            ? "⚠️ هل تريد حذف كل البيانات؟" 
-            : "⚠️ Delete all data?";
-        
-        if (confirm(confirmMsg)) {
-            // تحرير جميع URLs
-            uploadedFiles.forEach(file => {
-                if (file.url) {
-                    URL.revokeObjectURL(file.url);
-                }
-            });
-            
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    // ============== الاستعداد عند تحميل الصفحة ==============
+    // حفظ البيانات في localStorage
     window.onload = () => {
-        // استعادة اللغة
-        const savedLang = localStorage.getItem('z_language') || 'ar';
-        switchLanguage(savedLang);
-        
-        // استعادة البيانات
         document.getElementById('mainMessage').value = localStorage.getItem('z_msg') || '';
         document.getElementById('phoneNumbers').value = localStorage.getItem('z_nums') || '';
-        document.getElementById('manualFileUrl').value = localStorage.getItem('z_manual_file') || '';
-        document.getElementById('manualLocation').value = localStorage.getItem('z_manual_location') || '';
-        document.getElementById('countryCode').value = localStorage.getItem('z_country_code') || '+966';
+        document.getElementById('fileUrl').value = localStorage.getItem('z_file') || '';
         
-        updateMessageCounter();
-        validateAndCountNumbers();
-        updateCountryCode();
-        
-        // رسالة ترحيبية
-        setTimeout(() => {
-            if (!localStorage.getItem('z_welcome_shown')) {
-                const msg = currentLanguage === 'ar' 
-                    ? `🎉 أهلاً بك في زاجل برو (نسخة GitHub Pages)!\n\nبواسطة: د. محمد محمد علي\n\n⚡ الوظائف المتاحة:\n✅ إرسال رسائل جماعية\n✅ رفع ملفات محلياً\n✅ معاينة الرسائل\n✅ حفظ البيانات\n\n⚠️ ملاحظة: بعض الوظائف تحتاج HTTPS كامل`
-                    : `🎉 Welcome to Zajel Pro (GitHub Pages Edition)!\n\nBy: Dr. Mohammed Mohammed Ali\n\n⚡ Available Features:\n✅ Mass messaging\n✅ Local file upload\n✅ Message preview\n✅ Data saving\n\n⚠️ Note: Some features require full HTTPS`;
-                alert(msg);
-                localStorage.setItem('z_welcome_shown', 'true');
-            }
-        }, 1000);
-    };
-
-    // ============== اختصارات لوحة المفاتيح ==============
-    document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-            e.preventDefault();
-            saveData();
-        }
-        
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            e.preventDefault();
-            if (document.getElementById('startBtn').style.display !== 'none') {
-                startCampaign();
-            }
-        }
-        
-        if (e.key === 'F1') {
-            e.preventDefault();
-            const helpMsg = currentLanguage === 'ar' 
-                ? `🆘 اختصارات لوحة المفاتيح:\n\nCtrl+S: حفظ\nCtrl+Enter: بدء الحملة\nF1: هذه المساعدة\n\nللحصول على جميع المميزات:\nاستخدم Netlify بدلاً من GitHub Pages`
-                : `🆘 Keyboard Shortcuts:\n\nCtrl+S: Save\nCtrl+Enter: Start campaign\nF1: This help\n\nFor all features:\nUse Netlify instead of GitHub Pages`;
-            alert(helpMsg);
-        }
-        
-        if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
-            e.preventDefault();
-            const newLang = currentLanguage === 'ar' ? 'en' : 'ar';
-            switchLanguage(newLang);
-        }
-    });
-
-    // ============== التعامل مع إغلاق الصفحة ==============
-    window.addEventListener('beforeunload', () => {
-        // تحرير جميع URLs
-        uploadedFiles.forEach(file => {
-            if (file.url) {
-                URL.revokeObjectURL(file.url);
+        // اختصارات لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                localStorage.setItem('z_msg', document.getElementById('mainMessage').value);
+                localStorage.setItem('z_nums', document.getElementById('phoneNumbers').value);
+                localStorage.setItem('z_file', document.getElementById('fileUrl').value);
+                document.getElementById('statusLog').textContent = '💾 تم حفظ البيانات';
             }
         });
-    });
+    };
 </script>
 
 </body>
